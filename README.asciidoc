@@ -1,0 +1,292 @@
+= H2 Push Bug Proof of Concept
+
+== Based on the Secure hello world example
+
+This example code is used for debugging issues with HTTP/2 Push.
+
+To try this example, you need GNU `make` and `git` in your PATH.
+
+To build and run the example, use the following command:
+
+[source,bash]
+$ make run
+
+Then point your browser to https://localhost:8443
+
+I have added a little delay serve the page and the asset.
+you can alter this in `src/css_handler.erl` and `src/toppage_handler.erl`
+
+Chrome will not use server push to get "app.css".
+
+It does appear to work correctly with nghttp
+
+== Chrome Example Output
+
+[source,bash]
+----
+764: HTTP2_SESSION
+localhost:8443 (DIRECT)
+Start Time: 2018-05-21 14:04:16.003
+
+t=220663 [st=   0] +HTTP2_SESSION  [dt=?]
+                    --> host = "localhost:8443"
+                    --> proxy = "DIRECT"
+t=220663 [st=   0]    HTTP2_SESSION_INITIALIZED
+                      --> protocol = "h2"
+                      --> source_dependency = 763 (SOCKET)
+t=220663 [st=   0]    HTTP2_SESSION_SEND_SETTINGS
+                      --> settings = ["[id:1 (SETTINGS_HEADER_TABLE_SIZE) value:65536]","[id:3 (SETTINGS_MAX_CONCURRENT_STREAMS) value:1000]","[id:4 (SETTINGS_INITIAL_WINDOW_SIZE) value:6291456]"]
+t=220663 [st=   0]    HTTP2_SESSION_UPDATE_RECV_WINDOW
+                      --> delta = 15663105
+                      --> window_size = 15728640
+t=220663 [st=   0]    HTTP2_SESSION_SEND_WINDOW_UPDATE
+                      --> delta = 15663105
+                      --> stream_id = 0
+t=220663 [st=   0]    HTTP2_SESSION_SEND_HEADERS
+                      --> exclusive = true
+                      --> fin = true
+                      --> has_priority = true
+                      --> :method: GET
+                          :authority: localhost:8443
+                          :scheme: https
+                          :path: /
+                          pragma: no-cache
+                          cache-control: no-cache
+                          upgrade-insecure-requests: 1
+                          user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36
+                          accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+                          accept-encoding: gzip, deflate, br
+                          accept-language: en-US,en;q=0.9
+                      --> parent_stream_id = 0
+                      --> source_dependency = 760 (HTTP_STREAM_JOB)
+                      --> stream_id = 1
+                      --> weight = 256
+t=220664 [st=   1]    HTTP2_SESSION_RECV_SETTINGS
+t=220664 [st=   1]    HTTP2_SESSION_SEND_SETTINGS_ACK
+t=220664 [st=   1]    HTTP2_SESSION_RECV_SETTINGS_ACK
+t=220665 [st=   2]    HTTP2_SESSION_RECV_PUSH_PROMISE
+                      --> :authority: localhost:8443
+                          :method: GET
+                          :path: /app.css
+                          :scheme: https
+                          accept-encoding: text/css
+                      --> id = 1
+                      --> promised_stream_id = 2
+t=220665 [st=   2]    HTTP2_STREAM_SEND_PRIORITY
+                      --> exclusive = true
+                      --> parent_stream_id = 1
+                      --> stream_id = 2
+                      --> weight = 110
+t=220665 [st=   2]    HTTP2_SESSION_RECV_HEADERS
+                      --> fin = false
+                      --> :status: 200
+                          content-type: text/html
+                          date: Mon, 21 May 2018 20:04:15 GMT
+                          server: Cowboy
+                      --> stream_id = 1
+t=220665 [st=   2]    HTTP2_SESSION_RECV_HEADERS
+                      --> fin = false
+                      --> :status: 200
+                          content-type: text/css
+                          date: Mon, 21 May 2018 20:04:15 GMT
+                          max-age: 100
+                          server: Cowboy
+                      --> stream_id = 2
+t=221166 [st= 503]    HTTP2_SESSION_RECV_DATA
+                      --> fin = false
+                      --> size = 86
+                      --> stream_id = 2
+t=221166 [st= 503]    HTTP2_SESSION_UPDATE_RECV_WINDOW
+                      --> delta = -86
+                      --> window_size = 15728554
+t=221166 [st= 503]    HTTP2_SESSION_RECV_DATA
+                      --> fin = true
+                      --> size = 0
+                      --> stream_id = 2
+t=221666 [st=1003]    HTTP2_SESSION_RECV_DATA
+                      --> fin = false
+                      --> size = 477
+                      --> stream_id = 1
+t=221666 [st=1003]    HTTP2_SESSION_UPDATE_RECV_WINDOW
+                      --> delta = -477
+                      --> window_size = 15728077
+t=221666 [st=1003]    HTTP2_SESSION_RECV_DATA
+                      --> fin = true
+                      --> size = 0
+                      --> stream_id = 1
+t=221666 [st=1003]    HTTP2_SESSION_UPDATE_RECV_WINDOW
+                      --> delta = 477
+                      --> window_size = 15728554
+t=221676 [st=1013]    HTTP2_SESSION_SEND_HEADERS
+                      --> exclusive = true
+                      --> fin = true
+                      --> has_priority = true
+                      --> :method: GET
+                          :authority: localhost:8443
+                          :scheme: https
+                          :path: /app.css
+                          pragma: no-cache
+                          cache-control: no-cache
+                          user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36
+                          accept: text/css,*/*;q=0.1
+                          referer: https://localhost:8443/
+                          accept-encoding: gzip, deflate, br
+                          accept-language: en-US,en;q=0.9
+                      --> parent_stream_id = 0
+                      --> source_dependency = 768 (HTTP_STREAM_JOB)
+                      --> stream_id = 3
+                      --> weight = 256
+t=221676 [st=1013]    HTTP2_SESSION_RECV_HEADERS
+                      --> fin = false
+                      --> :status: 200
+                          content-type: text/css
+                          date: Mon, 21 May 2018 20:04:16 GMT
+                          max-age: 100
+                          server: Cowboy
+                      --> stream_id = 3
+t=222177 [st=1514]    HTTP2_SESSION_RECV_DATA
+                      --> fin = false
+                      --> size = 86
+                      --> stream_id = 3
+t=222177 [st=1514]    HTTP2_SESSION_UPDATE_RECV_WINDOW
+                      --> delta = -86
+                      --> window_size = 15728468
+t=222177 [st=1514]    HTTP2_SESSION_RECV_DATA
+                      --> fin = true
+                      --> size = 0
+                      --> stream_id = 3
+t=222177 [st=1514]    HTTP2_SESSION_UPDATE_RECV_WINDOW
+                      --> delta = 86
+                      --> window_size = 15728554
+t=222188 [st=1525]    HTTP2_SESSION_SEND_HEADERS
+                      --> exclusive = true
+                      --> fin = true
+                      --> has_priority = true
+                      --> :method: GET
+                          :authority: localhost:8443
+                          :scheme: https
+                          :path: /favicon.ico
+                          pragma: no-cache
+                          cache-control: no-cache
+                          user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36
+                          accept: image/webp,image/apng,image/*,*/*;q=0.8
+                          referer: https://localhost:8443/
+                          accept-encoding: gzip, deflate, br
+                          accept-language: en-US,en;q=0.9
+                      --> parent_stream_id = 0
+                      --> source_dependency = 772 (HTTP_STREAM_JOB)
+                      --> stream_id = 5
+                      --> weight = 220
+t=222188 [st=1525]    HTTP2_SESSION_RECV_HEADERS
+                      --> fin = true
+                      --> :status: 404
+                          content-length: 0
+                          date: Mon, 21 May 2018 20:04:17 GMT
+                          server: Cowboy
+                      --> stream_id = 5
+t=222189 [st=1526]    HTTP2_SESSION_RECV_DATA
+                      --> fin = true
+                      --> size = 0
+                      --> stream_id = 5
+
+----
+
+== NGHTTP example output
+
+[source,bash]
+----
+$ nghttp -v https://localhost:8443
+[ERROR] Could not connect to the address ::1
+Trying next address 127.0.0.1
+[  0.012] Connected
+[WARNING] Certificate verification failed: self signed certificate in certificate chain
+The negotiated protocol: h2
+[  0.019] recv SETTINGS frame <length=0, flags=0x00, stream_id=0>
+          (niv=0)
+[  0.019] send SETTINGS frame <length=12, flags=0x00, stream_id=0>
+          (niv=2)
+          [SETTINGS_MAX_CONCURRENT_STREAMS(0x03):100]
+          [SETTINGS_INITIAL_WINDOW_SIZE(0x04):65535]
+[  0.019] send SETTINGS frame <length=0, flags=0x01, stream_id=0>
+          ; ACK
+          (niv=0)
+[  0.019] send PRIORITY frame <length=5, flags=0x00, stream_id=3>
+          (dep_stream_id=0, weight=201, exclusive=0)
+[  0.019] send PRIORITY frame <length=5, flags=0x00, stream_id=5>
+          (dep_stream_id=0, weight=101, exclusive=0)
+[  0.019] send PRIORITY frame <length=5, flags=0x00, stream_id=7>
+          (dep_stream_id=0, weight=1, exclusive=0)
+[  0.019] send PRIORITY frame <length=5, flags=0x00, stream_id=9>
+          (dep_stream_id=7, weight=1, exclusive=0)
+[  0.019] send PRIORITY frame <length=5, flags=0x00, stream_id=11>
+          (dep_stream_id=3, weight=1, exclusive=0)
+[  0.020] send HEADERS frame <length=38, flags=0x25, stream_id=13>
+          ; END_STREAM | END_HEADERS | PRIORITY
+          (padlen=0, dep_stream_id=11, weight=16, exclusive=0)
+          ; Open new stream
+          :method: GET
+          :path: /
+          :scheme: https
+          :authority: localhost:8443
+          accept: */*
+          accept-encoding: gzip, deflate
+          user-agent: nghttp2/1.28.0
+[  0.020] recv SETTINGS frame <length=0, flags=0x01, stream_id=0>
+          ; ACK
+          (niv=0)
+[  0.021] recv (stream_id=13) :authority: localhost:8443
+[  0.021] recv (stream_id=13) :method: GET
+[  0.021] recv (stream_id=13) :path: /app.css
+[  0.021] recv (stream_id=13) :scheme: https
+[  0.021] recv (stream_id=13) accept: text/css
+[  0.021] recv PUSH_PROMISE frame <length=34, flags=0x04, stream_id=13>
+          ; END_HEADERS
+          (padlen=0, promised_stream_id=2)
+[  0.021] recv (stream_id=13) :status: 200
+[  0.021] recv (stream_id=13) content-length: 443
+[  0.021] recv (stream_id=13) content-type: text/html
+[  0.021] recv (stream_id=13) date: Mon, 07 May 2018 02:15:17 GMT
+[  0.021] recv (stream_id=13) server: Cowboy
+[  0.021] recv HEADERS frame <length=46, flags=0x04, stream_id=13>
+          ; END_HEADERS
+          (padlen=0)
+          ; First response header
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Hello Snowday!</title>
+    <link rel="stylesheet" href="./app.css")">
+  </head>
+	<body>
+	  <p>
+      This is a sample web page.
+    </p>
+	</body>
+</html
+	[  0.022] recv DATA frame <length=443, flags=0x01, stream_id=13>
+          ; END_STREAM
+[  0.022] recv (stream_id=2) :status: 200
+[  0.022] recv (stream_id=2) content-length: 86
+[  0.022] recv (stream_id=2) content-type: text/css
+[  0.022] recv (stream_id=2) date: Mon, 07 May 2018 02:15:17 GMT
+[  0.022] recv (stream_id=2) server: Cowboy
+[  0.022] recv HEADERS frame <length=15, flags=0x04, stream_id=2>
+          ; END_HEADERS
+          (padlen=0)
+          ; First push response header
+body{
+      color: green;
+      background-color: pink;
+      font-size: 24px;
+    }
+	[  0.029] recv DATA frame <length=86, flags=0x01, stream_id=2>
+          ; END_STREAM
+[  0.029] send GOAWAY frame <length=8, flags=0x00, stream_id=0>
+          (last_stream_id=2, error_code=NO_ERROR(0x00), opaque_data(0)=[])
+----
