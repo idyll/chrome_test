@@ -24,170 +24,168 @@ It does appear to work correctly with nghttp
 
 [source,bash]
 ----
-764: HTTP2_SESSION
-localhost:8443 (DIRECT)
-Start Time: 2018-05-21 14:04:16.003
+629: HTTP2_SESSION
+chrome1.phx.sh:8443 (DIRECT)
+Start Time: 2018-05-21 14:33:00.142
 
-t=220663 [st=   0] +HTTP2_SESSION  [dt=?]
-                    --> host = "localhost:8443"
-                    --> proxy = "DIRECT"
-t=220663 [st=   0]    HTTP2_SESSION_INITIALIZED
-                      --> protocol = "h2"
-                      --> source_dependency = 763 (SOCKET)
-t=220663 [st=   0]    HTTP2_SESSION_SEND_SETTINGS
-                      --> settings = ["[id:1 (SETTINGS_HEADER_TABLE_SIZE) value:65536]","[id:3 (SETTINGS_MAX_CONCURRENT_STREAMS) value:1000]","[id:4 (SETTINGS_INITIAL_WINDOW_SIZE) value:6291456]"]
-t=220663 [st=   0]    HTTP2_SESSION_UPDATE_RECV_WINDOW
-                      --> delta = 15663105
-                      --> window_size = 15728640
-t=220663 [st=   0]    HTTP2_SESSION_SEND_WINDOW_UPDATE
-                      --> delta = 15663105
-                      --> stream_id = 0
-t=220663 [st=   0]    HTTP2_SESSION_SEND_HEADERS
-                      --> exclusive = true
-                      --> fin = true
-                      --> has_priority = true
-                      --> :method: GET
-                          :authority: localhost:8443
-                          :scheme: https
-                          :path: /
-                          pragma: no-cache
-                          cache-control: no-cache
-                          upgrade-insecure-requests: 1
-                          user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36
-                          accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
-                          accept-encoding: gzip, deflate, br
-                          accept-language: en-US,en;q=0.9
-                      --> parent_stream_id = 0
-                      --> source_dependency = 760 (HTTP_STREAM_JOB)
-                      --> stream_id = 1
-                      --> weight = 256
-t=220664 [st=   1]    HTTP2_SESSION_RECV_SETTINGS
-t=220664 [st=   1]    HTTP2_SESSION_SEND_SETTINGS_ACK
-t=220664 [st=   1]    HTTP2_SESSION_RECV_SETTINGS_ACK
-t=220665 [st=   2]    HTTP2_SESSION_RECV_PUSH_PROMISE
-                      --> :authority: localhost:8443
-                          :method: GET
-                          :path: /app.css
-                          :scheme: https
-                          accept-encoding: text/css
-                      --> id = 1
-                      --> promised_stream_id = 2
-t=220665 [st=   2]    HTTP2_STREAM_SEND_PRIORITY
-                      --> exclusive = true
-                      --> parent_stream_id = 1
-                      --> stream_id = 2
-                      --> weight = 110
-t=220665 [st=   2]    HTTP2_SESSION_RECV_HEADERS
-                      --> fin = false
-                      --> :status: 200
-                          content-type: text/html
-                          date: Mon, 21 May 2018 20:04:15 GMT
-                          server: Cowboy
-                      --> stream_id = 1
-t=220665 [st=   2]    HTTP2_SESSION_RECV_HEADERS
-                      --> fin = false
-                      --> :status: 200
-                          content-type: text/css
-                          date: Mon, 21 May 2018 20:04:15 GMT
-                          max-age: 100
-                          server: Cowboy
-                      --> stream_id = 2
-t=221166 [st= 503]    HTTP2_SESSION_RECV_DATA
-                      --> fin = false
-                      --> size = 86
-                      --> stream_id = 2
-t=221166 [st= 503]    HTTP2_SESSION_UPDATE_RECV_WINDOW
-                      --> delta = -86
-                      --> window_size = 15728554
-t=221166 [st= 503]    HTTP2_SESSION_RECV_DATA
-                      --> fin = true
-                      --> size = 0
-                      --> stream_id = 2
-t=221666 [st=1003]    HTTP2_SESSION_RECV_DATA
-                      --> fin = false
-                      --> size = 477
-                      --> stream_id = 1
-t=221666 [st=1003]    HTTP2_SESSION_UPDATE_RECV_WINDOW
-                      --> delta = -477
-                      --> window_size = 15728077
-t=221666 [st=1003]    HTTP2_SESSION_RECV_DATA
-                      --> fin = true
-                      --> size = 0
-                      --> stream_id = 1
-t=221666 [st=1003]    HTTP2_SESSION_UPDATE_RECV_WINDOW
-                      --> delta = 477
-                      --> window_size = 15728554
-t=221676 [st=1013]    HTTP2_SESSION_SEND_HEADERS
-                      --> exclusive = true
-                      --> fin = true
-                      --> has_priority = true
-                      --> :method: GET
-                          :authority: localhost:8443
-                          :scheme: https
-                          :path: /app.css
-                          pragma: no-cache
-                          cache-control: no-cache
-                          user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36
-                          accept: text/css,*/*;q=0.1
-                          referer: https://localhost:8443/
-                          accept-encoding: gzip, deflate, br
-                          accept-language: en-US,en;q=0.9
-                      --> parent_stream_id = 0
-                      --> source_dependency = 768 (HTTP_STREAM_JOB)
-                      --> stream_id = 3
-                      --> weight = 256
-t=221676 [st=1013]    HTTP2_SESSION_RECV_HEADERS
-                      --> fin = false
-                      --> :status: 200
-                          content-type: text/css
-                          date: Mon, 21 May 2018 20:04:16 GMT
-                          max-age: 100
-                          server: Cowboy
-                      --> stream_id = 3
-t=222177 [st=1514]    HTTP2_SESSION_RECV_DATA
-                      --> fin = false
-                      --> size = 86
-                      --> stream_id = 3
-t=222177 [st=1514]    HTTP2_SESSION_UPDATE_RECV_WINDOW
-                      --> delta = -86
-                      --> window_size = 15728468
-t=222177 [st=1514]    HTTP2_SESSION_RECV_DATA
-                      --> fin = true
-                      --> size = 0
-                      --> stream_id = 3
-t=222177 [st=1514]    HTTP2_SESSION_UPDATE_RECV_WINDOW
-                      --> delta = 86
-                      --> window_size = 15728554
-t=222188 [st=1525]    HTTP2_SESSION_SEND_HEADERS
-                      --> exclusive = true
-                      --> fin = true
-                      --> has_priority = true
-                      --> :method: GET
-                          :authority: localhost:8443
-                          :scheme: https
-                          :path: /favicon.ico
-                          pragma: no-cache
-                          cache-control: no-cache
-                          user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36
-                          accept: image/webp,image/apng,image/*,*/*;q=0.8
-                          referer: https://localhost:8443/
-                          accept-encoding: gzip, deflate, br
-                          accept-language: en-US,en;q=0.9
-                      --> parent_stream_id = 0
-                      --> source_dependency = 772 (HTTP_STREAM_JOB)
-                      --> stream_id = 5
-                      --> weight = 220
-t=222188 [st=1525]    HTTP2_SESSION_RECV_HEADERS
-                      --> fin = true
-                      --> :status: 404
-                          content-length: 0
-                          date: Mon, 21 May 2018 20:04:17 GMT
-                          server: Cowboy
-                      --> stream_id = 5
-t=222189 [st=1526]    HTTP2_SESSION_RECV_DATA
-                      --> fin = true
-                      --> size = 0
-                      --> stream_id = 5
+t=8088 [st=   0] +HTTP2_SESSION  [dt=?]
+                  --> host = "chrome1.phx.sh:8443"
+                  --> proxy = "DIRECT"
+t=8088 [st=   0]    HTTP2_SESSION_INITIALIZED
+                    --> protocol = "h2"
+                    --> source_dependency = 628 (SOCKET)
+t=8088 [st=   0]    HTTP2_SESSION_SEND_SETTINGS
+                    --> settings = ["[id:1 (SETTINGS_HEADER_TABLE_SIZE) value:65536]","[id:3 (SETTINGS_MAX_CONCURRENT_STREAMS) value:1000]","[id:4 (SETTINGS_INITIAL_WINDOW_SIZE) value:6291456]"]
+t=8088 [st=   0]    HTTP2_SESSION_UPDATE_RECV_WINDOW
+                    --> delta = 15663105
+                    --> window_size = 15728640
+t=8089 [st=   1]    HTTP2_SESSION_SEND_WINDOW_UPDATE
+                    --> delta = 15663105
+                    --> stream_id = 0
+t=8089 [st=   1]    HTTP2_SESSION_SEND_HEADERS
+                    --> exclusive = true
+                    --> fin = true
+                    --> has_priority = true
+                    --> :method: GET
+                        :authority: chrome1.phx.sh:8443
+                        :scheme: https
+                        :path: /
+                        pragma: no-cache
+                        cache-control: no-cache
+                        upgrade-insecure-requests: 1
+                        user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36
+                        accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+                        accept-encoding: gzip, deflate, br
+                        accept-language: en-US,en;q=0.9
+                    --> parent_stream_id = 0
+                    --> source_dependency = 623 (HTTP_STREAM_JOB)
+                    --> stream_id = 1
+                    --> weight = 256
+t=8089 [st=   1]    HTTP2_SESSION_RECV_SETTINGS
+t=8089 [st=   1]    HTTP2_SESSION_SEND_SETTINGS_ACK
+t=8090 [st=   2]    HTTP2_SESSION_RECV_SETTINGS_ACK
+t=8090 [st=   2]    HTTP2_SESSION_RECV_PUSH_PROMISE
+                    --> :authority: chrome1.phx.sh:8443
+                        :method: GET
+                        :path: /app.css
+                        :scheme: https
+                        accept: text/css
+                    --> id = 1
+                    --> promised_stream_id = 2
+t=8090 [st=   2]    HTTP2_STREAM_SEND_PRIORITY
+                    --> exclusive = true
+                    --> parent_stream_id = 1
+                    --> stream_id = 2
+                    --> weight = 110
+t=8090 [st=   2]    HTTP2_SESSION_RECV_HEADERS
+                    --> fin = false
+                    --> :status: 200
+                        content-type: text/html
+                        date: Mon, 21 May 2018 20:32:59 GMT
+                        server: Cowboy
+                    --> stream_id = 1
+t=8090 [st=   2]    HTTP2_SESSION_RECV_HEADERS
+                    --> fin = false
+                    --> :status: 200
+                        content-type: text/css
+                        date: Mon, 21 May 2018 20:32:59 GMT
+                        server: Cowboy
+                    --> stream_id = 2
+t=8590 [st= 502]    HTTP2_SESSION_RECV_DATA
+                    --> fin = false
+                    --> size = 86
+                    --> stream_id = 2
+t=8591 [st= 503]    HTTP2_SESSION_UPDATE_RECV_WINDOW
+                    --> delta = -86
+                    --> window_size = 15728554
+t=8591 [st= 503]    HTTP2_SESSION_RECV_DATA
+                    --> fin = true
+                    --> size = 0
+                    --> stream_id = 2
+t=9090 [st=1002]    HTTP2_SESSION_RECV_DATA
+                    --> fin = false
+                    --> size = 477
+                    --> stream_id = 1
+t=9090 [st=1002]    HTTP2_SESSION_UPDATE_RECV_WINDOW
+                    --> delta = -477
+                    --> window_size = 15728077
+t=9090 [st=1002]    HTTP2_SESSION_RECV_DATA
+                    --> fin = true
+                    --> size = 0
+                    --> stream_id = 1
+t=9091 [st=1003]    HTTP2_SESSION_UPDATE_RECV_WINDOW
+                    --> delta = 477
+                    --> window_size = 15728554
+t=9099 [st=1011]    HTTP2_SESSION_SEND_HEADERS
+                    --> exclusive = true
+                    --> fin = true
+                    --> has_priority = true
+                    --> :method: GET
+                        :authority: chrome1.phx.sh:8443
+                        :scheme: https
+                        :path: /app.css
+                        pragma: no-cache
+                        cache-control: no-cache
+                        user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36
+                        accept: text/css,*/*;q=0.1
+                        referer: https://chrome1.phx.sh:8443/
+                        accept-encoding: gzip, deflate, br
+                        accept-language: en-US,en;q=0.9
+                    --> parent_stream_id = 0
+                    --> source_dependency = 633 (HTTP_STREAM_JOB)
+                    --> stream_id = 3
+                    --> weight = 256
+t=9100 [st=1012]    HTTP2_SESSION_RECV_HEADERS
+                    --> fin = false
+                    --> :status: 200
+                        content-type: text/css
+                        date: Mon, 21 May 2018 20:33:01 GMT
+                        server: Cowboy
+                    --> stream_id = 3
+t=9600 [st=1512]    HTTP2_SESSION_RECV_DATA
+                    --> fin = false
+                    --> size = 86
+                    --> stream_id = 3
+t=9600 [st=1512]    HTTP2_SESSION_UPDATE_RECV_WINDOW
+                    --> delta = -86
+                    --> window_size = 15728468
+t=9600 [st=1512]    HTTP2_SESSION_RECV_DATA
+                    --> fin = true
+                    --> size = 0
+                    --> stream_id = 3
+t=9600 [st=1512]    HTTP2_SESSION_UPDATE_RECV_WINDOW
+                    --> delta = 86
+                    --> window_size = 15728554
+t=9707 [st=1619]    HTTP2_SESSION_SEND_HEADERS
+                    --> exclusive = true
+                    --> fin = true
+                    --> has_priority = true
+                    --> :method: GET
+                        :authority: chrome1.phx.sh:8443
+                        :scheme: https
+                        :path: /favicon.ico
+                        pragma: no-cache
+                        cache-control: no-cache
+                        user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36
+                        accept: image/webp,image/apng,image/*,*/*;q=0.8
+                        referer: https://chrome1.phx.sh:8443/
+                        accept-encoding: gzip, deflate, br
+                        accept-language: en-US,en;q=0.9
+                    --> parent_stream_id = 0
+                    --> source_dependency = 637 (HTTP_STREAM_JOB)
+                    --> stream_id = 5
+                    --> weight = 220
+t=9708 [st=1620]    HTTP2_SESSION_RECV_HEADERS
+                    --> fin = true
+                    --> :status: 404
+                        content-length: 0
+                        date: Mon, 21 May 2018 20:33:01 GMT
+                        server: Cowboy
+                    --> stream_id = 5
+t=9708 [st=1620]    HTTP2_SESSION_RECV_DATA
+                    --> fin = true
+                    --> size = 0
+                    --> stream_id = 5
 
 ----
 
