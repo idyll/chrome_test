@@ -7,7 +7,7 @@
 
 init(Req0, Opts) ->
   % cowboy_req:inform(103, #{<<"link">> => <<"</app.css>; rel=preload; as=style">>}, Req0),
-  cowboy_req:push(<<"/app.css">>, #{<<"accept-encoding">> => <<"text/css">>}, Req0),
+  cowboy_req:push(<<"/app.css">>, #{<<"accept">> => <<"text/css">>}, Req0),
   Req = cowboy_req:stream_reply(200, #{
 		<<"content-type">> => <<"text/html">>
 	}, Req0),
