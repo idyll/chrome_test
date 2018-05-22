@@ -22,7 +22,7 @@ init(Req0, Opts) ->
       <meta name=\"description\" content=\"\">
       <meta name=\"author\" content=\"\">
 
-      <title>Hello Snowday!</title>
+      <title>Hello Chrome Test!</title>
       <link rel=\"stylesheet\" href=\"/app.css\")\">
     </head>
     <body>
